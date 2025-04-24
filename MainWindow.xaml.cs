@@ -171,14 +171,28 @@ namespace Gra2D
             // Obsługa wycinania lasu – naciskamy klawisz C
             if (e.Key == Key.C)
             {
-                if (mapa[pozycjaGraczaY, pozycjaGraczaX] == LAS)//jeśli gracz stoi na polu lasu
+              int typTerenu = mapa[pozycjaGraczaY, pozycjaGraczaX];
+
+                switch (typTerenu)
                 {
-                    mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
-                    tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
-                    iloscDrewna++;
-                    EtykietaDrewna.Content = "Drewno: " + iloscDrewna;
+                    case LAS:
+                        mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
+                        tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
+                        iloscDrewna++;
+                        break;
+                    case ZLOTO:
+                        mapa[pozycjaGraczaX, pozycjaGraczaY] = LAKA;
+                        tablicaTerenu[pozycjaGraczaX, pozycjaGraczaY].Source = obrazyTerenu[LAKA];
+                        iloscZlota++;
+                        break;
+                    case SKALA:
+                        mapa[pozycjaGraczaX, pozycjaGraczaY] = LAKA;
+                        tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
+                        iloscSkal++;
+                        break;
                 }
             }
+            EtykietaDrewna.Content = $"drewno:  {iloscDrewna}Skała:{iloscSkal} Złoto: {iloscZlota}";
         }
 
         // Obsługa przycisku "Wczytaj mapę"
@@ -192,6 +206,12 @@ namespace Gra2D
             {
                 WczytajMape(oknoDialogowe.FileName);
             }
+            iloscZlota = 0;
+            iloscDrewna = 0;
+            iloscSkal = 0;
+
+
+            EtykietaDrewna.Content = $"Drewno:{iloscDrewna} skała:{iloscSkal} Złoto:{iloscZlota}";
         }
     }
 }
