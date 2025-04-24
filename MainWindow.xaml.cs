@@ -213,6 +213,23 @@ namespace Gra2D
 
             EtykietaDrewna.Content = $"Drewno:{iloscDrewna} skała:{iloscSkal} Złoto:{iloscZlota}";
         }
+
+        private void ListaSkinow_SelectionChanged(object sender, SelectionChangedEventArgs e)//metoda na zmiane skinow
+        {
+            if (Skiny.SelectedItem is ComboBoxItem wybranySkin)
+            {
+                string nazwaPliku = wybranySkin.Tag.ToString();
+
+                try
+                {
+                    obrazGracza.Source = new BitmapImage(new Uri(nazwaPliku, UriKind.Relative));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Nie udało się załadować skina");
+                }
+            }
+        }
     }
 }
 
