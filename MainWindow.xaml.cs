@@ -14,7 +14,8 @@ namespace Gra2D
         public const int LAS = 1;     // las
         public const int LAKA = 2;     // łąka
         public const int SKALA = 3;   // skały
-        public const int ILE_TERENOW = 4;   // ile terenów
+        public const int ZLOTO = 4;   //złoto
+        public const int ILE_TERENOW = 5;   // ile terenów
         // Mapa przechowywana jako tablica dwuwymiarowa int
         private int[,] mapa;
         private int szerokoscMapy;
@@ -35,6 +36,8 @@ namespace Gra2D
         private Image obrazGracza;
         // Licznik zgromadzonego drewna
         private int iloscDrewna = 0;
+        private int iloscZlota = 0;
+        private int iloscSkal = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -55,6 +58,7 @@ namespace Gra2D
             obrazyTerenu[LAS] = new BitmapImage(new Uri("las.png", UriKind.Relative));
             obrazyTerenu[LAKA] = new BitmapImage(new Uri("laka.png", UriKind.Relative));
             obrazyTerenu[SKALA] = new BitmapImage(new Uri("skala.png", UriKind.Relative));
+            obrazyTerenu[ZLOTO] = new BitmapImage(new Uri("zloto.png", UriKind.Relative));
         }
 
         // Wczytuje mapę z pliku tekstowego i dynamicznie tworzy tablicę kontrolek Image
