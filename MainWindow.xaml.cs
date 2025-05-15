@@ -38,6 +38,8 @@ namespace Gra2D
         private int iloscDrewna = 0;
         private int iloscZlota = 0;
         private int iloscSkal = 0;
+        private List<Misja> misje = new List<Misja>();
+        private int indeksAktualnejMisji = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -242,6 +244,45 @@ namespace Gra2D
             public bool CzyUkonczona(int drewno, int skala, int zloto)
             {
                 return drewno >= Drewno && skala >= Skala && zloto >= Zloto;
+            }
+        }
+        private void PokazAktualnaMisje()
+        {
+            if (indeksAktualnejMisji < misje.Count)
+            {
+                var m = misje[indeksAktualnejMisji];
+                EtykietaMisji.Content = $"Misja:    {m.Nazwa} - potrzebne:  {m.Drewno} drewna, {m.Skala} skał, {m.Zloto} złota";
+            }
+            else
+            {
+                EtykietaMisji.Content = "wszystkie misje wykonane!";
+            }
+        }
+
+        private void crafting_Click(object sender, RoutedEventArgs e)
+        {
+            if (indeksAktualnejMisji < misje.Count)
+            {
+                var m = misje[indeksAktualnejMisji];
+                if (!m.Ukonczona && m.CzyUkonczona(iloscDrewna, iloscSkal, iloscZlota))
+                {
+                    iloscDrewna -= m.Drewno;
+                    iloscSkal -= m.Skala;
+                    iloscZlota -= m.Zloto;
+
+
+                    m.Ukonczona = true;
+                    MessageBox.Show($"Misja ukończona! Otrzymano: {m.Nagroda}");
+
+                    indeksAktualnejMisji++;
+                    PokazAktualnaMisje();
+
+                    EtykietaDrewna.Content = $"Drewno: {iloscDrewna} Skały: {iloscSkal} Złoto:  {iloscZlota}";
+                }
+                else
+                {
+                    MessageBox.Show("Nie masz wystarczających surowców.");
+                }
             }
         }
     }
