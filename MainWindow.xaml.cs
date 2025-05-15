@@ -40,6 +40,7 @@ namespace Gra2D
         private int iloscSkal = 0;
         private List<Misja> misje = new List<Misja>();
         private int indeksAktualnejMisji = 0;
+        
         public MainWindow()
         {
             InitializeComponent();
