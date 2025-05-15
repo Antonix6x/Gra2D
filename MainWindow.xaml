@@ -23,10 +23,11 @@
                 <ComboBoxItem Content="Skin 3" Tag="gracz3.png"/>
             </ComboBox>
             <Button x:Name="crafting" Content="crafting" HorizontalAlignment="Left" Margin="668,361,0,0" VerticalAlignment="Top" Height="60" Width="84" Click="crafting_Click"/>
+            <Label x:Name="EtykietaMisji" Content="" HorizontalAlignment="Left" Margin="621,28,0,0" VerticalAlignment="Top" Width="169" Grid.Row="1" BorderThickness="0,0,9,0"/>
+
             <Label Content="MISJA" HorizontalAlignment="Left" Margin="681,0,0,0" VerticalAlignment="Top" Width="109" Height="26"/>
         </Grid>
-        <Label x:Name="EtykietaMisji" Content="" HorizontalAlignment="Left" Margin="621,28,0,0" VerticalAlignment="Top" Width="169" Grid.Row="1" BorderThickness="0,0,9,0"/>
-
+        
     </Grid>
 </Window>
 
