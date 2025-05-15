@@ -11,20 +11,21 @@
         <!-- Panel sterowania -->
         <StackPanel Orientation="Horizontal" Margin="10">
             <Button Content="Wczytaj mapę" Click="WczytajMape_Click" Margin="0,0,10,0"/>
-            <Label Name="EtykietaDrewna" Content="Drewno: 0" FontSize="16"/>
-            <Image x:Name="obraz" Height="100" Width="100" Source="/gracz.png"/>
+            <Label Name="EtykietaDrewna" Content="Drewno: 0" FontSize="16" BorderBrush="black"/>
+            <Image x:Name="obraz" Height="100" Width="100" Source="/gracz3.png"/>
         </StackPanel>
         <!-- Kontener wyświetlający mapę -->
         <Grid Name="SiatkaMapy" Grid.Row="1" Background="LightGray">
 
             <ComboBox x:Name="Skiny" Width="150" SelectionChanged="ListaSkinow_SelectionChanged" Margin="532,-92,118,502">
-                <ComboBoxItem Content="Skin 1" Tag="gracz1.png" IsSelected="True"/>
+                <ComboBoxItem Content="Skin 1" Tag="gracz.png" IsSelected="True"/>
                 <ComboBoxItem Content="Skin 2" Tag="gracz2.png"/>
                 <ComboBoxItem Content="Skin 3" Tag="gracz3.png"/>
             </ComboBox>
             <Button x:Name="crafting" Content="crafting" HorizontalAlignment="Left" Margin="668,361,0,0" VerticalAlignment="Top" Height="60" Width="84" Click="crafting_Click"/>
+            <Label Content="MISJA" HorizontalAlignment="Left" Margin="681,0,0,0" VerticalAlignment="Top" Width="109" Height="26"/>
         </Grid>
-        <Label x:Name="EtykietaMisji" Content="" HorizontalAlignment="Left" Margin="327,42,0,0" VerticalAlignment="Top" Width="121"/>
+        <Label x:Name="EtykietaMisji" Content="" HorizontalAlignment="Left" Margin="621,28,0,0" VerticalAlignment="Top" Width="169" Grid.Row="1" BorderThickness="0,0,9,0"/>
 
     </Grid>
 </Window>

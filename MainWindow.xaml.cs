@@ -52,8 +52,9 @@ namespace Gra2D
                 Width = RozmiarSegmentu,
                 Height = RozmiarSegmentu
             };
-            BitmapImage bmpGracza = new BitmapImage(new Uri("gracz.png", UriKind.Relative));
+            BitmapImage bmpGracza = new BitmapImage(new Uri("gracz2.png", UriKind.Relative));
             obrazGracza.Source = bmpGracza;
+
         }
         private void WczytajObrazyTerenu()
         {
@@ -217,22 +218,27 @@ namespace Gra2D
             EtykietaDrewna.Content = $"Drewno:{iloscDrewna} skała:{iloscSkal} Złoto:{iloscZlota}";
         }
 
-        /*private void ListaSkinow_SelectionChanged(object sender, SelectionChangedEventArgs e)//metoda na zmiane skinow
+        private void ListaSkinow_SelectionChanged(object sender, SelectionChangedEventArgs e)//metoda na zmiane skinow
         {
-            if (Skiny.SelectedItem is ComboBoxItem wybranySkin)
+            /*if (Skiny.SelectedItem is ComboBoxItem wybranySkin)
             {
                 string nazwaPliku = wybranySkin.Tag.ToString();
 
                 try
                 {
-                    obrazGracza.Source = new BitmapImage(new Uri(gracz.png, UriKind.Relative));
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri("gracz.png", UriKind.Relative);
+                    bitmap.EndInit();
+                    obrazGracza.Source = bitmap;
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Nie udało się załadować skina");
                 }
-            }
-        }*/
+            }*/
+        }
         public class Misja
         {
             public string Nazwa { get; set; }
@@ -258,6 +264,8 @@ namespace Gra2D
             {
                 EtykietaMisji.Content = "wszystkie misje wykonane!";
             }
+
+            misje.Add(new Misja { Nazwa = "Zbuduj młot", Drewno = 3, Skala = 4, Zloto = 0 });
         }
 
         private void crafting_Click(object sender, RoutedEventArgs e)
