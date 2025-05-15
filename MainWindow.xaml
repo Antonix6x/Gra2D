@@ -16,12 +16,14 @@
         </StackPanel>
         <!-- Kontener wyświetlający mapę -->
         <Grid Name="SiatkaMapy" Grid.Row="1" Background="LightGray">
+           
             <ComboBox x:Name="Skiny" Width="150" SelectionChanged="ListaSkinow_SelectionChanged" Margin="532,-92,118,502">
                 <ComboBoxItem Content="Skin 1" Tag="gracz1.png" IsSelected="True"/>
                 <ComboBoxItem Content="Skin 2" Tag="gracz2.png"/>
                 <ComboBoxItem Content="Skin 3" Tag="gracz3.png"/>
             </ComboBox>
         </Grid>
+       
     </Grid>
 </Window>
 

@@ -171,7 +171,7 @@ namespace Gra2D
             // Obsługa wycinania lasu – naciskamy klawisz C
             if (e.Key == Key.C)
             {
-              int typTerenu = mapa[pozycjaGraczaY, pozycjaGraczaX];
+                int typTerenu = mapa[pozycjaGraczaY, pozycjaGraczaX];
 
                 switch (typTerenu)
                 {
@@ -214,7 +214,7 @@ namespace Gra2D
             EtykietaDrewna.Content = $"Drewno:{iloscDrewna} skała:{iloscSkal} Złoto:{iloscZlota}";
         }
 
-        private void ListaSkinow_SelectionChanged(object sender, SelectionChangedEventArgs e)//metoda na zmiane skinow
+        /*private void ListaSkinow_SelectionChanged(object sender, SelectionChangedEventArgs e)//metoda na zmiane skinow
         {
             if (Skiny.SelectedItem is ComboBoxItem wybranySkin)
             {
@@ -222,12 +222,26 @@ namespace Gra2D
 
                 try
                 {
-                    obrazGracza.Source = new BitmapImage(new Uri(nazwaPliku, UriKind.Relative));
+                    obrazGracza.Source = new BitmapImage(new Uri(gracz.png, UriKind.Relative));
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Nie udało się załadować skina");
                 }
+            }
+        }*/
+        public class Misja
+        {
+            public string Nazwa { get; set; }
+            public int Drewno {  get; set; }
+            public int Skala { get; set; }
+            public int Zloto {  get; set; }
+            public string Nagroda { get; set; }
+            public bool Ukonczona {  get; set; }
+
+            public bool CzyUkonczona(int drewno, int skala, int zloto)
+            {
+                return drewno >= Drewno && skala >= Skala && zloto >= Zloto;
             }
         }
     }
