@@ -55,6 +55,9 @@ namespace Gra2D
             BitmapImage bmpGracza = new BitmapImage(new Uri("gracz2.png", UriKind.Relative));
             obrazGracza.Source = bmpGracza;
 
+            misje.Add(new Misja { Nazwa = "Zbuduj młot", Drewno = 3, Skala = 4, Zloto = 0 });
+            PokazAktualnaMisje();
+
         }
         private void WczytajObrazyTerenu()
         {
@@ -220,7 +223,7 @@ namespace Gra2D
 
         private void ListaSkinow_SelectionChanged(object sender, SelectionChangedEventArgs e)//metoda na zmiane skinow
         {
-            /*if (Skiny.SelectedItem is ComboBoxItem wybranySkin)
+            if (Skiny.SelectedItem is ComboBoxItem wybranySkin && wybranySkin.Tag != null )
             {
                 string nazwaPliku = wybranySkin.Tag.ToString();
 
@@ -235,7 +238,7 @@ namespace Gra2D
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Nie udało się załadować skina");
+                    MessageBox.Show($"Nie udało się załadować skina: {ex.Message}");
                 }
             }*/
         }
@@ -265,7 +268,7 @@ namespace Gra2D
                 EtykietaMisji.Content = "wszystkie misje wykonane!";
             }
 
-            misje.Add(new Misja { Nazwa = "Zbuduj młot", Drewno = 3, Skala = 4, Zloto = 0 });
+            
         }
 
         private void crafting_Click(object sender, RoutedEventArgs e)
@@ -284,7 +287,7 @@ namespace Gra2D
                     MessageBox.Show($"Misja ukończona! Otrzymano: {m.Nagroda}");
 
                     indeksAktualnejMisji++;
-                    PokazAktualnaMisje();
+                    
 
                     EtykietaDrewna.Content = $"Drewno: {iloscDrewna} Skały: {iloscSkal} Złoto:  {iloscZlota}";
                 }
