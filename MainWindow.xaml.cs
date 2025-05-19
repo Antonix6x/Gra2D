@@ -188,12 +188,12 @@ namespace Gra2D
                         iloscDrewna++;
                         break;
                     case ZLOTO:
-                        mapa[pozycjaGraczaX, pozycjaGraczaY] = LAKA;
-                        tablicaTerenu[pozycjaGraczaX, pozycjaGraczaY].Source = obrazyTerenu[LAKA];
+                        mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
+                        tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
                         iloscZlota++;
                         break;
                     case SKALA:
-                        mapa[pozycjaGraczaX, pozycjaGraczaY] = LAKA;
+                        mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
                         tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
                         iloscSkal++;
                         break;
@@ -225,13 +225,13 @@ namespace Gra2D
         {
             if (Skiny.SelectedItem is ComboBoxItem wybranySkin && wybranySkin.Tag != null )
             {
-                string nazwaPliku = wybranySkin.Tag.ToString();
+                string Skin = wybranySkin.Tag.ToString();
 
                 try
                 {
                     BitmapImage bitmap = new BitmapImage();
                     bitmap.BeginInit();
-                    bitmap.UriSource = new Uri("gracz.png", UriKind.Relative);
+                    bitmap.UriSource = new Uri(Skin, UriKind.Relative);
                     bitmap.EndInit();
                     obrazGracza.Source = bitmap;
 
