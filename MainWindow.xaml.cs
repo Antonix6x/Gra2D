@@ -57,10 +57,6 @@ namespace Gra2D
             BitmapImage bmpGracza = new BitmapImage(new Uri("gracz.png", UriKind.Relative));
             obrazGracza.Source = bmpGracza;
 
-            misje.Add(new Misja { Nazwa = "Zbuduj młot", Drewno = 3, Skala = 0, Zloto = 0, Nagroda = "Kilof" });
-            misje.Add(new Misja { Nazwa = "Zbierz skały", Drewno = 0, Skala = 5, Zloto = 0, Nagroda = "Mozesz zebrac zloto" });
-            PokazAktualnaMisje();
-
         }
         private void WczytajObrazyTerenu()
         {
@@ -194,15 +190,14 @@ namespace Gra2D
                         iloscDrewna++;
                         break;
                     case ZLOTO:
-                        
-                        mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
-                        tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
+                        mapa[pozycjaGraczaX, pozycjaGraczaY] = LAKA;
+                        tablicaTerenu[pozycjaGraczaX, pozycjaGraczaY].Source = obrazyTerenu[LAKA];
                         iloscZlota++;
                         break;
 
                     case SKALA:
-                        mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
-                        tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[ZLOTO];
+                        mapa[pozycjaGraczaX, pozycjaGraczaY] = LAKA;
+                        tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
                         iloscSkal++;
                         break;
                 }
@@ -250,15 +245,15 @@ namespace Gra2D
 
         /*private void ListaSkinow_SelectionChanged(object sender, SelectionChangedEventArgs e)//metoda na zmiane skinow
         {
-            if (Skiny.SelectedItem is ComboBoxItem wybranySkin && wybranySkin.Tag !=null)
+            /*if (Skiny.SelectedItem is ComboBoxItem wybranySkin)
             {
-                string nazwaPliku = wybranySkin.Tag.ToString();
+                string Skin = wybranySkin.Tag.ToString();
 
                 try
                 {
                     BitmapImage bitmap = new BitmapImage();
                     bitmap.BeginInit();
-                    bitmap.UriSource = new Uri(nazwaPliku, UriKind.Relative);
+                    bitmap.UriSource = new Uri("gracz.png", UriKind.Relative);
                     bitmap.EndInit();
                    
                    // obrazGracza.Source = bitmap;
@@ -266,10 +261,10 @@ namespace Gra2D
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Nie udało się załadować skina:    {ex.Message}");
+                    MessageBox.Show("Nie udało się załadować skina");
                 }
-            }
-        }*/
+            }*/
+        }
         public class Misja
         {
             public string Nazwa { get; set; }
@@ -315,7 +310,7 @@ namespace Gra2D
                     MessageBox.Show($"Misja ukończona! Otrzymano: {m.Nagroda}");
 
                     indeksAktualnejMisji++;
-                   
+                    PokazAktualnaMisje();
 
                     EtykietaDrewna.Content = $"Drewno: {iloscDrewna} Skały: {iloscSkal} Złoto:  {iloscZlota}";
                 }
