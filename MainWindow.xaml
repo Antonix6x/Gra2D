@@ -3,30 +3,52 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Gra WPF" Height="600" Width="800"
         KeyDown="OknoGlowne_KeyDown">
-    <Grid>
+
+    <Grid Margin="0,0,0,-6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <!-- Panel sterowania -->
-        <StackPanel Orientation="Horizontal" Margin="10">
-            <Button Content="Wczytaj mapę" Click="WczytajMape_Click" Margin="0,0,10,0"/>
-            <Label Name="EtykietaDrewna" Content="Drewno: 0" FontSize="16" BorderBrush="black"/>
-            <Image x:Name="obraz" Height="100" Width="100" Source="/gracz3.png"/>
-            <Button x:Name="crafting" Content="crafting" Height="36" Width="68" Click="crafting_Click"/>
-        </StackPanel>
+        <Grid x:Name="MenuGlowne" Visibility="Visible" Grid.RowSpan="2" Background="#FF882525">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button x:Name="Zacznij" Height="70" Width="164" Content="Zacznij" Click="Zacznij_Click"/>
+
+            </StackPanel>
+
+        </Grid>
+        <Button Content="Wczytaj mapę" Click="WczytajMape_Click" Margin="5,20,694,397" RenderTransformOrigin="0.157,0.357">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        
+        <Label Name="EtykietaDrewna" Content="Drewno: 0" FontSize="16" BorderBrush="black" Margin="0,98,470,347"/>
+        <Image x:Name="obraz" Source="/gracz3.png" Margin="650,5,53,383"/>
+        <Button x:Name="crafting" Content="crafting" Height="36" Click="crafting_Click" Margin="127,24,590,420"/>
+        
         <!-- Kontener wyświetlający mapę -->
-        <Grid Name="SiatkaMapy" Grid.Row="1" Background="LightGray">
+        <Grid Name="SiatkaMapy" Margin="0,133,0,0" Grid.RowSpan="2">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="#FFAEED7C" Offset="0"/>
+                </LinearGradientBrush>
+            </Grid.Background>
 
-            <ComboBox x:Name="Skiny" Width="150" SelectionChanged="ListaSkinow_SelectionChanged" Margin="532,-77,0,519" HorizontalAlignment="Left">
-                <ComboBoxItem Content="Skin 1" Tag="gracz.png" IsSelected="True"/>
-                <ComboBoxItem Content="Skin 2" Tag="gracz2.png"/>
-                <ComboBoxItem Content="Skin 3" Tag="gracz3.png"/>
-            </ComboBox>
 
-            <Label x:Name="EtykietaMisji" Content="" HorizontalAlignment="Left" Margin="569,15,0,0" VerticalAlignment="Top" Width="221" BorderThickness="0,0,9,0"/>
+
+            <Label x:Name="EtykietaMisji" Content="" HorizontalAlignment="Left" Margin="470,15,0,0" VerticalAlignment="Top" Width="320" BorderThickness="0,0,9,0"/>
             <Label Content="MISJA" HorizontalAlignment="Left" Margin="569,41,0,0" VerticalAlignment="Top" Width="93" FontWeight="Bold"/>
         </Grid>
+        <Button x:Name="Skin2" Content="Skin2" HorizontalAlignment="Left" Margin="684,102,0,0" VerticalAlignment="Top" Width="34" Click="Skin2_Click"/>
+        <Button x:Name="Skin3" Content="Skin3" HorizontalAlignment="Left" Margin="723,102,0,0" VerticalAlignment="Top" Width="36" Click="Skin3_Click"/>
+        <Button x:Name="Skin1" Content="Skin1" HorizontalAlignment="Left" Margin="641,103,0,0" VerticalAlignment="Top" Click="Skin1_Click"/>
 
     </Grid>
 </Window>

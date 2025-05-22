@@ -46,6 +46,8 @@ namespace Gra2D
             InitializeComponent();
             WczytajObrazyTerenu();
 
+            MenuGlowne.Visibility = Visibility.Visible;
+            SiatkaMapy.Visibility = Visibility.Collapsed;
             // Inicjalizacja obrazka gracza
             obrazGracza = new Image
             {
@@ -55,7 +57,8 @@ namespace Gra2D
             BitmapImage bmpGracza = new BitmapImage(new Uri("gracz.png", UriKind.Relative));
             obrazGracza.Source = bmpGracza;
 
-            misje.Add(new Misja { Nazwa = "Zbuduj młot", Drewno = 3, Skala = 4, Zloto = 0 });
+            misje.Add(new Misja { Nazwa = "Zbuduj młot", Drewno = 3, Skala = 0, Zloto = 0, Nagroda = "Kilof" });
+            misje.Add(new Misja { Nazwa = "Zbierz skały", Drewno = 0, Skala = 5, Zloto = 0, Nagroda = "Mozesz zebrac zloto" });
             PokazAktualnaMisje();
 
         }
@@ -165,8 +168,10 @@ namespace Gra2D
             else if (e.Key == Key.Right) nowyX++;
             //Gracz nie może wyjść poza mapę
             if (nowyX >= 0 && nowyX < szerokoscMapy && nowyY >= 0 && nowyY < wysokoscMapy)
+
+            // Gracz nie może wejść na pole ze skałami
             {
-                // Gracz nie może wejść na pole ze skałami
+
                 if (mapa[nowyY, nowyX] != SKALA)
                 {
                     pozycjaGraczaX = nowyX;
@@ -174,6 +179,7 @@ namespace Gra2D
                     AktualizujPozycjeGracza();
                 }
             }
+        
 
             // Obsługa wycinania lasu – naciskamy klawisz C
             if (e.Key == Key.C)
@@ -188,10 +194,12 @@ namespace Gra2D
                         iloscDrewna++;
                         break;
                     case ZLOTO:
+                        
                         mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
                         tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
                         iloscZlota++;
                         break;
+
                     case SKALA:
                         mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
                         tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[ZLOTO];
@@ -199,6 +207,25 @@ namespace Gra2D
                         break;
                 }
             }
+            if (e.Key == Key.N)
+            {
+                int typTerenu = mapa[pozycjaGraczaY, pozycjaGraczaX];
+
+                if (typTerenu == ZLOTO)
+                {
+                    mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
+                    tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
+                    iloscZlota++;
+                }
+                else if (typTerenu == SKALA)
+                {
+                    mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
+                    tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
+                    iloscSkal--;
+                }
+                
+            }
+
             EtykietaDrewna.Content = $"drewno:  {iloscDrewna}Skała:{iloscSkal} Złoto: {iloscZlota}";
         }
 
@@ -221,7 +248,7 @@ namespace Gra2D
             EtykietaDrewna.Content = $"Drewno:{iloscDrewna} skała:{iloscSkal} Złoto:{iloscZlota}";
         }
 
-        private void ListaSkinow_SelectionChanged(object sender, SelectionChangedEventArgs e)//metoda na zmiane skinow
+        /*private void ListaSkinow_SelectionChanged(object sender, SelectionChangedEventArgs e)//metoda na zmiane skinow
         {
             if (Skiny.SelectedItem is ComboBoxItem wybranySkin && wybranySkin.Tag !=null)
             {
@@ -233,7 +260,8 @@ namespace Gra2D
                     bitmap.BeginInit();
                     bitmap.UriSource = new Uri(nazwaPliku, UriKind.Relative);
                     bitmap.EndInit();
-                    //obrazGracza.Tag = bitmap;
+                   
+                   // obrazGracza.Source = bitmap;
 
                 }
                 catch (Exception ex)
@@ -241,7 +269,7 @@ namespace Gra2D
                     MessageBox.Show($"Nie udało się załadować skina:    {ex.Message}");
                 }
             }
-        }
+        }*/
         public class Misja
         {
             public string Nazwa { get; set; }
@@ -296,6 +324,30 @@ namespace Gra2D
                     MessageBox.Show("Nie masz wystarczających surowców.");
                 }
             }
+        }
+
+        private void Zacznij_Click(object sender, RoutedEventArgs e)
+        {
+            MenuGlowne.Visibility = Visibility.Collapsed;
+            SiatkaMapy.Visibility = Visibility.Visible;
+        }
+
+        private void Skin1_Click(object sender, RoutedEventArgs e)
+        {
+            BitmapImage bmpGracza = new BitmapImage(new Uri("gracz.png", UriKind.Relative));
+            obrazGracza.Source = bmpGracza;
+        }
+
+        private void Skin2_Click(object sender, RoutedEventArgs e)
+        {
+            BitmapImage bmpGracza = new BitmapImage(new Uri("gracz2.png", UriKind.Relative));
+            obrazGracza.Source = bmpGracza;
+        }
+
+        private void Skin3_Click(object sender, RoutedEventArgs e)
+        {
+            BitmapImage bmpGracza = new BitmapImage(new Uri("gracz3.png", UriKind.Relative));
+            obrazGracza.Source = bmpGracza;
         }
     }
 }
