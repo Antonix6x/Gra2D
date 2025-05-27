@@ -30,7 +30,7 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Button x:Name="NastepnaMisja" Content="Nastepna" HorizontalAlignment="Left" Margin="128,71,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="nastepnaMisja_Click" Visibility="Hidden"/>
+            <Button x:Name="NastepnaMisja" Content="Nastepna" HorizontalAlignment="Left" Margin="128,71,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="NastepnaMisja_Click" Visibility="Hidden"/>
 
             <Label Name="EtykietaDrewna" Content="Drewno: 0" FontSize="16" BorderBrush="black" Margin="0,96,470,349" Visibility="Hidden"/>
             <Image x:Name="obraz" Source="/gracz3.png" Margin="650,5,53,383" Visibility="Hidden"/>

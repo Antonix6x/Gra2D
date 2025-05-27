@@ -57,6 +57,9 @@ namespace Gra2D
             BitmapImage bmpGracza = new BitmapImage(new Uri("gracz.png", UriKind.Relative));
             obrazGracza.Source = bmpGracza;
 
+            misje.Add(new Misja { Nazwa = "Zdobądź drewno", Drewno = 2, Skala = 0, Zloto = 0 });
+            misje.Add(new Misja { Nazwa = "Zbuduj młot",    Drewno = 3, Skala = 0, Zloto = 0 });
+            misje.Add(new Misja { Nazwa = "Zdobądź kamień", Drewno = 0, Skala = 1, Zloto = 0 });
         }
         private void WczytajObrazyTerenu()
         {
@@ -68,7 +71,7 @@ namespace Gra2D
         }
 
         // Wczytuje mapę z pliku tekstowego i dynamicznie tworzy tablicę kontrolek Image
-        private void WczytajMape(string sciezkaPliku)
+        private void WczytajMape(string sciezkaPliku)cos
         {
             try
             {
