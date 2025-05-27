@@ -190,13 +190,13 @@ namespace Gra2D
                         iloscDrewna++;
                         break;
                     case ZLOTO:
-                        mapa[pozycjaGraczaX, pozycjaGraczaY] = LAKA;
-                        tablicaTerenu[pozycjaGraczaX, pozycjaGraczaY].Source = obrazyTerenu[LAKA];
+                        mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
+                        tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
                         iloscZlota++;
                         break;
 
                     case SKALA:
-                        mapa[pozycjaGraczaX, pozycjaGraczaY] = LAKA;
+                        mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
                         tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
                         iloscSkal++;
                         break;
@@ -240,7 +240,7 @@ namespace Gra2D
             iloscSkal = 0;
 
 
-            EtykietaDrewna.Content = $"Drewno:{iloscDrewna} skała:{iloscSkal} Złoto:{iloscZlota}";
+            EtykietaDrewna.Content = $"Drewno: {iloscDrewna} skała: {iloscSkal} Złoto: {iloscZlota}";
         }
 
         /*private void ListaSkinow_SelectionChanged(object sender, SelectionChangedEventArgs e)//metoda na zmiane skinow
@@ -263,8 +263,8 @@ namespace Gra2D
                 {
                     MessageBox.Show("Nie udało się załadować skina");
                 }
-            }*/
-        }
+            }
+        }*/
         public class Misja
         {
             public string Nazwa { get; set; }
@@ -312,7 +312,7 @@ namespace Gra2D
                     indeksAktualnejMisji++;
                     PokazAktualnaMisje();
 
-                    EtykietaDrewna.Content = $"Drewno: {iloscDrewna} Skały: {iloscSkal} Złoto:  {iloscZlota}";
+                    EtykietaDrewna.Content = $"Drewno:  { iloscDrewna } Skały: { iloscSkal } Złoto:  { iloscZlota }";
                 }
                 else
                 {
@@ -325,6 +325,14 @@ namespace Gra2D
         {
             MenuGlowne.Visibility = Visibility.Collapsed;
             SiatkaMapy.Visibility = Visibility.Visible;
+            WczytajMapke.Visibility = Visibility.Visible;
+            NastepnaMisja.Visibility = Visibility.Visible;
+            obraz.Visibility = Visibility.Visible;
+            Skin1.Visibility = Visibility.Visible;
+            Skin2.Visibility = Visibility.Visible;
+            Skin3.Visibility = Visibility.Visible;
+            EtykietaDrewna.Visibility = Visibility.Visible;
+            crafting.Visibility = Visibility.Visible;
         }
 
         private void Skin1_Click(object sender, RoutedEventArgs e)
@@ -343,6 +351,32 @@ namespace Gra2D
         {
             BitmapImage bmpGracza = new BitmapImage(new Uri("gracz3.png", UriKind.Relative));
             obrazGracza.Source = bmpGracza;
+        }
+
+        private void NastepnaMisja_Click(object sender, RoutedEventArgs e)
+        {
+            if (indeksAktualnejMisji < misje.Count - 1)
+            {
+                indeksAktualnejMisji++;
+                PokazAktualnaMisje();
+
+                MessageBox.Show("Wybierz kolejną mapę przypisaną do misji");
+
+                OpenFileDialog oknoDialogowe = new OpenFileDialog();
+                oknoDialogowe.Filter = "Plik mapy (*.txt)|*.txt";
+                oknoDialogowe.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+                bool? czyOtwarto = oknoDialogowe.ShowDialog();
+                    if (czyOtwarto == true)
+                {
+                    WczytajMape(oknoDialogowe.FileName);
+                }
+                else
+                {
+                    MessageBox.Show("to była ostatnia misja.");
+                    Application.Current.Shutdown();
+                }
+            }
         }
     }
 }
