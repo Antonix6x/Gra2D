@@ -62,7 +62,7 @@ namespace Gra2D
             PokazAktualnaMisje();
 
             misje.Add(new Misja { Nazwa = "Zdobądź drewno", Drewno = 2, Skala = 0, Zloto = 0, Nagroda = "Przejście do następnej misji ;)" });
-            misje.Add(new Misja { Nazwa = "Zbuduj młot",    Drewno = 3, Skala = 0, Zloto = 0, Nagroda = "Młot" });
+            misje.Add(new Misja { Nazwa = "Zbuduj młot", Drewno = 3, Skala = 0, Zloto = 0, Nagroda = "Młot" });
             misje.Add(new Misja { Nazwa = "Zdobądź kamień", Drewno = 0, Skala = 1, Zloto = 0, Nagroda = "Złoto" });
         }
         private void WczytajObrazyTerenu()
@@ -165,7 +165,7 @@ namespace Gra2D
         {
             int nowyX = pozycjaGraczaX;
             int nowyY = pozycjaGraczaY;
-           
+
             //zmiana pozycji gracza
             if (e.Key == Key.Up) nowyY--;
             else if (e.Key == Key.Down) nowyY++;
@@ -188,11 +188,11 @@ namespace Gra2D
                     pozycjaGraczaX = nowyX;
                     pozycjaGraczaY = nowyY;
                     AktualizujPozycjeGracza();
-                    
+
 
                 }
             }
-        
+
 
             // Obsługa wycinania lasu – naciskamy klawisz C
             if (e.Key == Key.C)
@@ -243,7 +243,7 @@ namespace Gra2D
                     tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
                     iloscSkal--;
                 }
-                
+
             }
 
             EtykietaDrewna.Content = $"drewno:  {iloscDrewna} Skała:{iloscSkal} Złoto: {iloscZlota}";
@@ -252,7 +252,7 @@ namespace Gra2D
         // Obsługa przycisku "Wczytaj mapę"
         private void WczytajMape_Click(object sender, RoutedEventArgs e)
         {
-            
+
             oknoDialogowe.Filter = "Plik mapy (*.txt)|*.txt";
             oknoDialogowe.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory; // Ustawienie katalogu początkowego
             bool? czyOtwartoMape = oknoDialogowe.ShowDialog();
@@ -293,11 +293,11 @@ namespace Gra2D
         public class Misja
         {
             public string Nazwa { get; set; }
-            public int Drewno {  get; set; }
+            public int Drewno { get; set; }
             public int Skala { get; set; }
-            public int Zloto {  get; set; }
+            public int Zloto { get; set; }
             public string Nagroda { get; set; }
-            public bool Ukonczona {  get; set; }
+            public bool Ukonczona { get; set; }
 
             public bool CzyUkonczona(int drewno, int skala, int zloto)
             {
@@ -310,14 +310,14 @@ namespace Gra2D
             {
                 var m = misje[indeksAktualnejMisji];
                 EtykietaMisji.Content = $"Misja:    {m.Nazwa} - potrzebne:  {m.Drewno} drewna, {m.Skala} skał, {m.Zloto} złota";
-                
+
             }
             else
             {
                 EtykietaMisji.Content = "wszystkie misje wykonane!";
             }
 
-            
+
         }
 
         private void crafting_Click(object sender, RoutedEventArgs e)
@@ -338,7 +338,7 @@ namespace Gra2D
                     indeksAktualnejMisji++;
                     PokazAktualnaMisje();
 
-                    EtykietaDrewna.Content = $"Drewno:  { iloscDrewna } Skały: { iloscSkal } Złoto:  { iloscZlota }";
+                    EtykietaDrewna.Content = $"Drewno:  {iloscDrewna} Skały: {iloscSkal} Złoto:  {iloscZlota}";
                 }
                 else
                 {
@@ -382,29 +382,34 @@ namespace Gra2D
 
         private void NastepnaMisja_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("Misja pierwsza, misja druga, misja trzecia", MessageBoxButton.OKCancel.ToString());
+            
+
             if (indeksAktualnejMisji < misje.Count - 1)
-            {
-                indeksAktualnejMisji++;
-               
+                {
+                    indeksAktualnejMisji++;
 
-                MessageBox.Show("Wybierz kolejną mapę przypisaną do misji");
 
-                OpenFileDialog oknoDialogowe = new OpenFileDialog();
-                oknoDialogowe.Filter = "Plik mapy (*.txt)|*.txt";
-                oknoDialogowe.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-                bool? czyOtwarto = oknoDialogowe.ShowDialog();
+                    MessageBox.Show("Wybierz kolejną mapę przypisaną do misji");
+
+                    OpenFileDialog oknoDialogowe = new OpenFileDialog();
+                    oknoDialogowe.Filter = "Plik mapy (*.txt)|*.txt";
+                    oknoDialogowe.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+                    bool? czyOtwarto = oknoDialogowe.ShowDialog();
                     if (czyOtwarto == true)
-                {
-                    WczytajMape(oknoDialogowe.FileName);
+                    {
+                        WczytajMape(oknoDialogowe.FileName);
+                    }
+                    else
+                    {
+                        MessageBox.Show("to była ostatnia misja.");
+                        Application.Current.Shutdown();
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("to była ostatnia misja.");
-                    Application.Current.Shutdown();
-                }
-            }
         }
+    
 
         private void Zasady_Click(object sender, RoutedEventArgs e)
         {
