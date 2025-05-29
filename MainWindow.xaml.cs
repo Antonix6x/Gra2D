@@ -42,7 +42,8 @@ namespace Gra2D
         private int iloscSkal = 0;
         private List<Misja> misje = new List<Misja>();
         private int indeksAktualnejMisji = 0;
-        
+        public OpenFileDialog oknoDialogowe = new OpenFileDialog();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -164,6 +165,7 @@ namespace Gra2D
         {
             int nowyX = pozycjaGraczaX;
             int nowyY = pozycjaGraczaY;
+           
             //zmiana pozycji gracza
             if (e.Key == Key.Up) nowyY--;
             else if (e.Key == Key.Down) nowyY++;
@@ -180,6 +182,14 @@ namespace Gra2D
                     pozycjaGraczaX = nowyX;
                     pozycjaGraczaY = nowyY;
                     AktualizujPozycjeGracza();
+                }
+                else if (oknoDialogowe.FileName != "misja1.txt" && mapa[nowyX, nowyY] == SKALA)
+                {
+                    pozycjaGraczaX = nowyX;
+                    pozycjaGraczaY = nowyY;
+                    AktualizujPozycjeGracza();
+                    
+
                 }
             }
         
@@ -236,13 +246,13 @@ namespace Gra2D
                 
             }
 
-            EtykietaDrewna.Content = $"drewno:  {iloscDrewna}Skała:{iloscSkal} Złoto: {iloscZlota}";
+            EtykietaDrewna.Content = $"drewno:  {iloscDrewna} Skała:{iloscSkal} Złoto: {iloscZlota}";
         }
 
         // Obsługa przycisku "Wczytaj mapę"
         private void WczytajMape_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog oknoDialogowe = new OpenFileDialog();
+            
             oknoDialogowe.Filter = "Plik mapy (*.txt)|*.txt";
             oknoDialogowe.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory; // Ustawienie katalogu początkowego
             bool? czyOtwartoMape = oknoDialogowe.ShowDialog();
