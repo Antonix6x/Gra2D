@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,7 +16,8 @@ namespace Gra2D
         public const int LAKA = 2;     // łąka
         public const int SKALA = 3;   // skały
         public const int ZLOTO = 4;   //złoto
-        public const int ILE_TERENOW = 5;   // ile terenów
+        public const int CHATKA = 5;    //chatka
+        public const int ILE_TERENOW = 6;   // ile terenów
         // Mapa przechowywana jako tablica dwuwymiarowa int
         private int[,] mapa;
         private int szerokoscMapy;
@@ -56,10 +58,11 @@ namespace Gra2D
             };
             BitmapImage bmpGracza = new BitmapImage(new Uri("gracz.png", UriKind.Relative));
             obrazGracza.Source = bmpGracza;
+            PokazAktualnaMisje();
 
-            misje.Add(new Misja { Nazwa = "Zdobądź drewno", Drewno = 2, Skala = 0, Zloto = 0 });
-            misje.Add(new Misja { Nazwa = "Zbuduj młot",    Drewno = 3, Skala = 0, Zloto = 0 });
-            misje.Add(new Misja { Nazwa = "Zdobądź kamień", Drewno = 0, Skala = 1, Zloto = 0 });
+            misje.Add(new Misja { Nazwa = "Zdobądź drewno", Drewno = 2, Skala = 0, Zloto = 0, Nagroda = "Przejście do następnej misji ;)" });
+            misje.Add(new Misja { Nazwa = "Zbuduj młot",    Drewno = 3, Skala = 0, Zloto = 0, Nagroda = "Młot" });
+            misje.Add(new Misja { Nazwa = "Zdobądź kamień", Drewno = 0, Skala = 1, Zloto = 0, Nagroda = "Złoto" });
         }
         private void WczytajObrazyTerenu()
         {
@@ -68,10 +71,11 @@ namespace Gra2D
             obrazyTerenu[LAKA] = new BitmapImage(new Uri("laka.png", UriKind.Relative));
             obrazyTerenu[SKALA] = new BitmapImage(new Uri("skala.png", UriKind.Relative));
             obrazyTerenu[ZLOTO] = new BitmapImage(new Uri("zloto.png", UriKind.Relative));
+            obrazyTerenu[CHATKA] = new BitmapImage(new Uri("Chatka.png", UriKind.Relative));
         }
 
         // Wczytuje mapę z pliku tekstowego i dynamicznie tworzy tablicę kontrolek Image
-        private void WczytajMape(string sciezkaPliku)cos
+        private void WczytajMape(string sciezkaPliku)
         {
             try
             {
@@ -203,6 +207,14 @@ namespace Gra2D
                         tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
                         iloscSkal++;
                         break;
+                    case CHATKA:
+                        mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
+                        tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
+                        if (e.Key == Key.C)
+                        {
+                            MessageBox.Show("Brawo ukończyłeś misje");
+                        }
+                        break;
                 }
             }
             if (e.Key == Key.N)
@@ -288,6 +300,7 @@ namespace Gra2D
             {
                 var m = misje[indeksAktualnejMisji];
                 EtykietaMisji.Content = $"Misja:    {m.Nazwa} - potrzebne:  {m.Drewno} drewna, {m.Skala} skał, {m.Zloto} złota";
+                
             }
             else
             {
@@ -336,6 +349,7 @@ namespace Gra2D
             Skin3.Visibility = Visibility.Visible;
             EtykietaDrewna.Visibility = Visibility.Visible;
             crafting.Visibility = Visibility.Visible;
+            EtykietaMisji.Visibility = Visibility.Visible;
         }
 
         private void Skin1_Click(object sender, RoutedEventArgs e)
@@ -361,7 +375,7 @@ namespace Gra2D
             if (indeksAktualnejMisji < misje.Count - 1)
             {
                 indeksAktualnejMisji++;
-                PokazAktualnaMisje();
+               
 
                 MessageBox.Show("Wybierz kolejną mapę przypisaną do misji");
 
@@ -380,6 +394,12 @@ namespace Gra2D
                     Application.Current.Shutdown();
                 }
             }
+        }
+
+        private void Zasady_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Zasady gry:" + " - wykonywać misje;" + " - nie wykraczać poza schematy - Kontrolki do zbierania surowców: C, N, X");
+
         }
     }
 }

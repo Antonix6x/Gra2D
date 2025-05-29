@@ -4,7 +4,7 @@
         Title="Gra WPF" Height="600" Width="800"
         KeyDown="OknoGlowne_KeyDown">
 
-   
+
 
     <Grid Margin="0,0,0,-6">
         <Grid.RowDefinitions>
@@ -12,12 +12,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <!-- Panel sterowania -->
-        <Grid x:Name="MenuGlowne" Visibility="Visible" Grid.RowSpan="2" Background="#FF882525">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button x:Name="Zacznij" Height="70" Width="164" Content="Zacznij" Click="Zacznij_Click"/>
 
-        </StackPanel>
-</Grid>
+        <Grid x:Name="MenuGlowne" Visibility="Visible" Grid.RowSpan="2" Background="#FF882525">
+            <StackPanel Margin="176,243,176,217">
+                <Button x:Name="Zacznij" Height="48" Width="164" Content="Zacznij" Click="Zacznij_Click"/>
+                <Button x:Name="Zasady" Content="ZASADY" Click="Zasady_Click" Width="126"/>
+            </StackPanel>
+        </Grid>
 
         <Grid>
             <Button x:Name="WczytajMapke" Content="Wczytaj mapę" Click="WczytajMape_Click" Margin="5,20,694,397" RenderTransformOrigin="0.157,0.357" Visibility="Hidden">
@@ -30,7 +31,7 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Button x:Name="NastepnaMisja" Content="Nastepna" HorizontalAlignment="Left" Margin="128,71,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="NastepnaMisja_Click" Visibility="Hidden"/>
+            <Button x:Name="NastepnaMisja" Content="Misje" HorizontalAlignment="Left" Margin="128,71,0,0" VerticalAlignment="Top" Height="30" Width="80" Click="NastepnaMisja_Click" Visibility="Hidden"/>
 
             <Label Name="EtykietaDrewna" Content="Drewno: 0" FontSize="16" BorderBrush="black" Margin="0,96,470,349" Visibility="Hidden"/>
             <Image x:Name="obraz" Source="/gracz3.png" Margin="650,5,53,383" Visibility="Hidden"/>
@@ -45,13 +46,12 @@
                 </LinearGradientBrush>
             </Grid.Background>
 
-            <Label x:Name="EtykietaMisji" Content="." HorizontalAlignment="Left" Margin="470,15,0,0" VerticalAlignment="Top" Width="320" BorderThickness="0,0,9,0" FontWeight="Bold"/>
-            <Label Content="MISJA" HorizontalAlignment="Left" Margin="569,41,0,0" VerticalAlignment="Top" Width="93" FontWeight="Bold"/>
+
         </Grid>
         <Button x:Name="Skin2" Content="Skin2" HorizontalAlignment="Left" Margin="684,102,0,0" VerticalAlignment="Top" Width="34" Click="Skin2_Click" Visibility="Hidden"/>
         <Button x:Name="Skin3" Content="Skin3" HorizontalAlignment="Left" Margin="723,102,0,0" VerticalAlignment="Top" Width="36" Click="Skin3_Click" Visibility="Hidden"/>
         <Button x:Name="Skin1" Content="Skin1" HorizontalAlignment="Left" Margin="641,103,0,0" VerticalAlignment="Top" Click="Skin1_Click" Visibility="Hidden"/>
-
+        <Label x:Name="EtykietaMisji" HorizontalAlignment="Left" Margin="268,-122,0,0" VerticalAlignment="Top" Width="269" BorderThickness="0,0,9,0" FontWeight="Bold" Height="26" Visibility="Hidden"/>
     </Grid>
 </Window>
 
