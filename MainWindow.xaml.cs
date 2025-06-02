@@ -72,7 +72,7 @@ namespace Gra2D
             obrazyTerenu[LAKA] = new BitmapImage(new Uri("laka.png", UriKind.Relative));
             obrazyTerenu[SKALA] = new BitmapImage(new Uri("skala.png", UriKind.Relative));
             obrazyTerenu[ZLOTO] = new BitmapImage(new Uri("zloto.png", UriKind.Relative));
-            obrazyTerenu[CHATKA] = new BitmapImage(new Uri("Chatka.png", UriKind.Relative));
+            obrazyTerenu[CHATKA] = new BitmapImage(new Uri("chatka.png", UriKind.Relative));
         }
 
         // Wczytuje mapę z pliku tekstowego i dynamicznie tworzy tablicę kontrolek Image
@@ -177,19 +177,29 @@ namespace Gra2D
             // Gracz nie może wejść na pole ze skałami
             {
 
-                if (mapa[nowyY, nowyX] != SKALA)
+                if (mapa[nowyY, nowyX] != SKALA && mapa[nowyY, nowyX] != ZLOTO)
                 {
                     pozycjaGraczaX = nowyX;
                     pozycjaGraczaY = nowyY;
                     AktualizujPozycjeGracza();
                 }
-                else if (oknoDialogowe.FileName != "misja1.txt" && mapa[nowyX, nowyY] == SKALA)
+                /* else if (oknoDialogowe.FileName != "misja1.txt" && mapa[nowyX, nowyY] == SKALA)
+                 {
+                     pozycjaGraczaX = nowyX;
+                     pozycjaGraczaY = nowyY;
+                     AktualizujPozycjeGracza();
+
+
+                 }*/
+                if (!string.IsNullOrEmpty(oknoDialogowe.FileName)
+                    && oknoDialogowe.FileName != "misja1.txt"
+                    && nowyX >= 0 && nowyX < mapa.GetLength(0)
+                    && nowyY >= 0 && nowyY < mapa.GetLength(1)
+                    && mapa[nowyX, nowyY] == SKALA && mapa[nowyY, nowyX] != ZLOTO)
                 {
                     pozycjaGraczaX = nowyX;
                     pozycjaGraczaY = nowyY;
                     AktualizujPozycjeGracza();
-
-
                 }
             }
 
@@ -206,12 +216,6 @@ namespace Gra2D
                         tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
                         iloscDrewna++;
                         break;
-                    case ZLOTO:
-                        mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
-                        tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
-                        iloscZlota++;
-                        break;
-
                     case SKALA:
                         mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
                         tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
@@ -223,6 +227,8 @@ namespace Gra2D
                         if (e.Key == Key.C)
                         {
                             MessageBox.Show("Brawo ukończyłeś misje");
+                            NastepnaMisja_Click(null, null); 
+                            
                         }
                         break;
                 }
@@ -241,10 +247,12 @@ namespace Gra2D
                 {
                     mapa[pozycjaGraczaY, pozycjaGraczaX] = LAKA;
                     tablicaTerenu[pozycjaGraczaY, pozycjaGraczaX].Source = obrazyTerenu[LAKA];
-                    iloscSkal--;
+                    iloscSkal++;
                 }
+                                
 
-            }
+
+                }
 
             EtykietaDrewna.Content = $"drewno:  {iloscDrewna} Skała:{iloscSkal} Złoto: {iloscZlota}";
         }
@@ -306,16 +314,7 @@ namespace Gra2D
         }
         private void PokazAktualnaMisje()
         {
-            if (indeksAktualnejMisji < misje.Count)
-            {
-                var m = misje[indeksAktualnejMisji];
-                EtykietaMisji.Content = $"Misja:    {m.Nazwa} - potrzebne:  {m.Drewno} drewna, {m.Skala} skał, {m.Zloto} złota";
-
-            }
-            else
-            {
-                EtykietaMisji.Content = "wszystkie misje wykonane!";
-            }
+           
 
 
         }
@@ -333,10 +332,10 @@ namespace Gra2D
 
 
                     m.Ukonczona = true;
-                    MessageBox.Show($"Misja ukończona! Otrzymano: {m.Nagroda}");
+                    MessageBox.Show($" Otrzymano: {m.Nagroda}");
 
-                    indeksAktualnejMisji++;
-                    PokazAktualnaMisje();
+                    //indeksAktualnejMisji++;
+                    //PokazAktualnaMisje();
 
                     EtykietaDrewna.Content = $"Drewno:  {iloscDrewna} Skały: {iloscSkal} Złoto:  {iloscZlota}";
                 }
@@ -359,7 +358,6 @@ namespace Gra2D
             Skin3.Visibility = Visibility.Visible;
             EtykietaDrewna.Visibility = Visibility.Visible;
             crafting.Visibility = Visibility.Visible;
-            EtykietaMisji.Visibility = Visibility.Visible;
         }
 
         private void Skin1_Click(object sender, RoutedEventArgs e)
@@ -413,7 +411,7 @@ namespace Gra2D
 
         private void Zasady_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Zasady gry:" + " - wykonywać misje;" + " - nie wykraczać poza schematy - Kontrolki do zbierania surowców: C, N, X");
+            MessageBox.Show("Zasady gry: \n     -Dotrzyj do chatki i wciśnij `N` dokładnie tak samo jak przy zbieraniu kamienia; \n     -Zbieranie surowców: Zbieranie drewna `C`, zbieranie skał `N` ;\n      - Nie powiększaj okna gry;\n     - Żyuczymy udanej gry!:)        \n ");
 
         }
     }

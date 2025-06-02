@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="chatka.png" />
     <None Remove="gracz.png" />
     <None Remove="gracz2.png" />
     <None Remove="gracz3.png" />
@@ -19,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="chatka.png" />
     <Resource Include="gracz.png" />
     <Resource Include="gracz2.png" />
     <Resource Include="gracz3.png" />

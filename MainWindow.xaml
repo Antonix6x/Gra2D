@@ -13,7 +13,13 @@
         </Grid.RowDefinitions>
         <!-- Panel sterowania -->
 
-        <Grid x:Name="MenuGlowne" Visibility="Visible" Grid.RowSpan="2" Background="#FF882525">
+        <Grid x:Name="MenuGlowne" Visibility="Visible" Grid.RowSpan="2">
+            <Grid.Background>
+                <RadialGradientBrush>
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF652020" Offset="1"/>
+                </RadialGradientBrush>
+            </Grid.Background>
             <StackPanel Margin="176,243,176,217">
                 <Button x:Name="Zacznij" Height="48" Width="164" Content="Zacznij" Click="Zacznij_Click"/>
                 <Button x:Name="Zasady" Content="ZASADY" Click="Zasady_Click" Width="126"/>
@@ -42,7 +48,7 @@
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="1"/>
-                    <GradientStop Color="#FFAEED7C" Offset="0"/>
+                    <GradientStop Color="#FF13715E" Offset="0"/>
                 </LinearGradientBrush>
             </Grid.Background>
 
@@ -51,7 +57,6 @@
         <Button x:Name="Skin2" Content="Skin2" HorizontalAlignment="Left" Margin="684,102,0,0" VerticalAlignment="Top" Width="34" Click="Skin2_Click" Visibility="Hidden"/>
         <Button x:Name="Skin3" Content="Skin3" HorizontalAlignment="Left" Margin="723,102,0,0" VerticalAlignment="Top" Width="36" Click="Skin3_Click" Visibility="Hidden"/>
         <Button x:Name="Skin1" Content="Skin1" HorizontalAlignment="Left" Margin="641,103,0,0" VerticalAlignment="Top" Click="Skin1_Click" Visibility="Hidden"/>
-        <Label x:Name="EtykietaMisji" HorizontalAlignment="Left" Margin="268,-122,0,0" VerticalAlignment="Top" Width="269" BorderThickness="0,0,9,0" FontWeight="Bold" Height="26" Visibility="Hidden"/>
     </Grid>
 </Window>
 
