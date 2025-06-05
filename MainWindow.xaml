@@ -54,6 +54,8 @@
 
 
         </Grid>
+        <Button x:Name="przepisy" Content="przepisy" HorizontalAlignment="Left" Margin="417,10,0,0" VerticalAlignment="Top" Width="89" Click="przepisy_Click" Height="29" Visibility="Collapsed"/>
+        <Button x:Name="celMisji" Content="CEL" HorizontalAlignment="Left" Margin="335,10,0,0" VerticalAlignment="Top" Height="29" Width="65" Click="celMisji_Click" Visibility="Hidden"/>
         <Button x:Name="Skin2" Content="Skin2" HorizontalAlignment="Left" Margin="684,102,0,0" VerticalAlignment="Top" Width="34" Click="Skin2_Click" Visibility="Hidden"/>
         <Button x:Name="Skin3" Content="Skin3" HorizontalAlignment="Left" Margin="723,102,0,0" VerticalAlignment="Top" Width="36" Click="Skin3_Click" Visibility="Hidden"/>
         <Button x:Name="Skin1" Content="Skin1" HorizontalAlignment="Left" Margin="641,103,0,0" VerticalAlignment="Top" Click="Skin1_Click" Visibility="Hidden"/>

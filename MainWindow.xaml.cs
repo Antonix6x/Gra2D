@@ -41,7 +41,7 @@ namespace Gra2D
         private int iloscZlota = 0;
         private int iloscSkal = 0;
         private List<Misja> misje = new List<Misja>();
-        private int indeksAktualnejMisji = 0;
+       private int indeksAktualnejMisji = 0;
         public OpenFileDialog oknoDialogowe = new OpenFileDialog();
 
         public MainWindow()
@@ -59,11 +59,11 @@ namespace Gra2D
             };
             BitmapImage bmpGracza = new BitmapImage(new Uri("gracz.png", UriKind.Relative));
             obrazGracza.Source = bmpGracza;
-            PokazAktualnaMisje();
+            
 
-            misje.Add(new Misja { Nazwa = "Zdobądź drewno", Drewno = 2, Skala = 0, Zloto = 0, Nagroda = "Przejście do następnej misji ;)" });
-            misje.Add(new Misja { Nazwa = "Zbuduj młot", Drewno = 3, Skala = 0, Zloto = 0, Nagroda = "Młot" });
-            misje.Add(new Misja { Nazwa = "Zdobądź kamień", Drewno = 0, Skala = 1, Zloto = 0, Nagroda = "Złoto" });
+            misje.Add(new Misja { Nazwa="Zdobądź troche drewna i dotrzyj do chatki"});
+            misje.Add(new Misja { Nazwa = "Zbuduj młot i dotrzyj do chatki"});
+            misje.Add(new Misja { Nazwa = "Zbuduj złoty miecz i dotrzyj do chatki" });
         }
         private void WczytajObrazyTerenu()
         {
@@ -172,6 +172,7 @@ namespace Gra2D
             else if (e.Key == Key.Left) nowyX--;
             else if (e.Key == Key.Right) nowyX++;
             //Gracz nie może wyjść poza mapę
+            
             if (nowyX >= 0 && nowyX < szerokoscMapy && nowyY >= 0 && nowyY < wysokoscMapy)
 
             // Gracz nie może wejść na pole ze skałami
@@ -191,11 +192,12 @@ namespace Gra2D
 
 
                  }*/
+                
                 if (!string.IsNullOrEmpty(oknoDialogowe.FileName)
                     && oknoDialogowe.FileName != "misja1.txt"
                     && nowyX >= 0 && nowyX < mapa.GetLength(0)
                     && nowyY >= 0 && nowyY < mapa.GetLength(1)
-                    && mapa[nowyX, nowyY] == SKALA && mapa[nowyY, nowyX] != ZLOTO)
+                    && mapa[nowyX, nowyY] == SKALA && mapa[nowyY, nowyX] == ZLOTO)
                 {
                     pozycjaGraczaX = nowyX;
                     pozycjaGraczaY = nowyY;
@@ -227,8 +229,18 @@ namespace Gra2D
                         if (e.Key == Key.C)
                         {
                             MessageBox.Show("Brawo ukończyłeś misje");
-                            NastepnaMisja_Click(null, null); 
-                            
+
+                            oknoDialogowe.Filter = "Plik mapy (*.txt)|*.txt";
+                            oknoDialogowe.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory; // Ustawienie katalogu początkowego
+                            bool? czyOtwartoMape = oknoDialogowe.ShowDialog();
+                            if (czyOtwartoMape == true)
+                            {
+                                WczytajMape(oknoDialogowe.FileName);
+                            }
+                            iloscZlota = 0;
+                            iloscDrewna = 0;
+                            iloscSkal = 0;
+
                         }
                         break;
                 }
@@ -304,7 +316,7 @@ namespace Gra2D
             public int Drewno { get; set; }
             public int Skala { get; set; }
             public int Zloto { get; set; }
-            public string Nagroda { get; set; }
+           
             public bool Ukonczona { get; set; }
 
             public bool CzyUkonczona(int drewno, int skala, int zloto)
@@ -312,12 +324,7 @@ namespace Gra2D
                 return drewno >= Drewno && skala >= Skala && zloto >= Zloto;
             }
         }
-        private void PokazAktualnaMisje()
-        {
-           
-
-
-        }
+   
 
         private void crafting_Click(object sender, RoutedEventArgs e)
         {
@@ -332,7 +339,7 @@ namespace Gra2D
 
 
                     m.Ukonczona = true;
-                    MessageBox.Show($" Otrzymano: {m.Nagroda}");
+                    
 
                     //indeksAktualnejMisji++;
                     //PokazAktualnaMisje();
@@ -358,6 +365,8 @@ namespace Gra2D
             Skin3.Visibility = Visibility.Visible;
             EtykietaDrewna.Visibility = Visibility.Visible;
             crafting.Visibility = Visibility.Visible;
+            przepisy.Visibility = Visibility.Visible;
+            celMisji.Visibility = Visibility.Visible;
         }
 
         private void Skin1_Click(object sender, RoutedEventArgs e)
@@ -394,8 +403,9 @@ namespace Gra2D
                     OpenFileDialog oknoDialogowe = new OpenFileDialog();
                     oknoDialogowe.Filter = "Plik mapy (*.txt)|*.txt";
                     oknoDialogowe.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
+                    
                     bool? czyOtwarto = oknoDialogowe.ShowDialog();
+
                     if (czyOtwarto == true)
                     {
                         WczytajMape(oknoDialogowe.FileName);
@@ -411,8 +421,30 @@ namespace Gra2D
 
         private void Zasady_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Zasady gry: \n     -Dotrzyj do chatki i wciśnij `N` dokładnie tak samo jak przy zbieraniu kamienia; \n     -Zbieranie surowców: Zbieranie drewna `C`, zbieranie skał `N` ;\n      - Nie powiększaj okna gry;\n     - Żyuczymy udanej gry!:)        \n ");
+            MessageBox.Show("Zasady gry: \n     -Dotrzyj do chatki i wciśnij `C` dokładnie tak samo jak przy zbieraniu kamienia; \n     -Zbieranie surowców: Zbieranie drewna `C`, zbieranie skał `N` ;\n      - Nie powiększaj okna gry;\n     - Żyuczymy udanej gry!:)        \n ");
 
+        }
+
+        private void przepisy_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Przepisy  \n  Młot:    3- drewna, 2-skala  \n  kilof:      3-drewna, 3-skala   \n  miecz:  2-drewna,3-skala/zloto");
+        }
+
+        private void celMisji_Click(object sender, RoutedEventArgs e)
+        {
+            string nazwaPliku = System.IO.Path.GetFileName(oknoDialogowe.FileName);
+            if (nazwaPliku == "misja1.txt")
+            {
+                MessageBox.Show($"Cel misji:    {misje[1]}");
+            }
+            else if (nazwaPliku == "misja2.txt")
+            {
+                MessageBox.Show($"Cel misji:     {misje[2]}");
+            }
+            else if (nazwaPliku == "misja3.txt")
+            {
+                MessageBox.Show($"Cel misji:    {misje[3]}");
+            }
         }
     }
 }
