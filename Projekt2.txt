@@ -1,0 +1,6 @@
+Dalsza część projektu, ponieważ tamtej nie umiem edytować.
+
+Założenia:	
+- przycisk CEL umożliwiający wyświetlenie danej misji oraz przycisk przepisy umożliwiający sprawzenie przepisu na dany przedmiot.
+
+Głównym założeniem programu jest zbieranie surowców, zbudowanie przedmiotów i dotarcie do chatki. Przede wszystkim program ma umożliwić graczowi niszczyć kamienie i złoto, po ukończeniu pierwszej misji.
